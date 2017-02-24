@@ -1,0 +1,52 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+{#
+{% set response = craft.rest.request
+    .url('https://podio.com/oauth/token')
+    .query({
+        grant_type: 'app',
+        appid: '13938130',
+        app_token: '40398f5f618c437e9b28fb92dedad490',
+        client_id: 'websol-bczqdu',
+        redirect_uri: 'http://dev.shekinahatlanta.org/resting-podio',
+        client_secret: 'MZkpG6LiHpW8vv0xaE9XhXySAwhRCHbTTmsA537kbjNQ3S0IHlIQd2ZiieGMsLO0'
+    })
+    .send() %}
+#}
+
+{% set response = craft.rest.request.handle('elexio').send() %}
+
+<pre>
+	
+    {{ dump(response) }}
+    
+    {#this iterates over the keys in an array#}
+    {% for key in response|keys %}
+    {{ key }}
+	{% endfor %}
+    
+<!-- Para iterar sobre el array "FindPeopleResult" que vino como el unico elemento de contenido dentro del objeto respuesta del request (Este objeto tiene solo dos elementos: success y data), sin embargo al ser un array, fue necesario iterar sobre la combinación key, value para listar el contenido de cada elemento dentro del array. En este for loop, "key" solo da como respuesta la cantidad de elementos que tiene el array, y "value" es para seleccionar el contenido del elemento de turno} SE INDICA MAS ABAJO COMO FUNCIONA CORRECTAMENTE Esto es asi porque es un Array solo de values que son objetos, no de par key:value --->
+   
+   {% for key, value in response.data.FindPersonResult %}
+    
+    	<table>
+          <tr>
+            <td>{{ value.HouseholdName }}</td>
+            <td>{{ value.ContactID }}</td> 
+            <td>{{ value.DisplayName }}</td>
+          </tr>
+        </table>
+    {% endfor %}
+<!-- 
+
+Confirmado que el request regresa arrays anidados. El array del primer nivel tiene dos items que son: success (boolean) y data(object XML). Data es en si un array y contiene otro array llamado FindPersonResults(objectXML). Dentro de Find person results estan los campos de resultados del request: 
+    {%for item in response %}
+		{#{ dump(item) }#}<br>
+        {#{ response.data.FindPersonResult.ContactID }#}
+	{% endfor %}
+-->
+</pre>
+    
+{% endblock %}
