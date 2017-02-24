@@ -3,40 +3,4 @@
 {% block content %}
 
 
-
-{# % set response = craft.rest.request
-    .url('https://podio.com/oauth/token')
-    .query({
-        grant_type: 'app',
-        app_id: '13938130',
-        app_token: '40398f5f618c437e9b28fb92dedad490',
-        client_id: 'websol-bczqdu',
-        redirect_uri: 'http://dev.shekinahatlanta.org',
-        client_secret: 'MZkpG6LiHpW8vv0xaE9XhXySAwhRCHbTTmsA537kbjNQ3S0IHlIQd2ZiieGMsLO0'
-    })
-    .send() % #}
-
-{# blocks evertthing that worked with REST plugin in Craft 2.5 and got broken in 2.6---
-
-{% set response = craft.rest.request.handle('podioSeguimiento').send() %}
-
-<pre>
-    {{ dump(response) }}
-    {# %for item in response %}
-		{{item}}<br>
-	{% endfor % #}
-</pre>
-
--- of blocking evertthing that worked with REST plugin in Craft 2.5 and got broken in 2.6 #}
-
-{# Thi code was trying to use the httpReq plugin, I didnt understand the role of the file parameter---
-
-{% set response = craft.httpReq.post('https://podio.com/oauth/token', { "grant_type" : "app", "app_id" : "13938130", "app_token" : "40398f5f618c437e9b28fb92dedad490", "client_id" : "websol-bczqdu", "redirect_uri" : "http://dev.shekinahatlanta.org", "client_secret" : "MZkpG6LiHpW8vv0xaE9XhXySAwhRCHbTTmsA537kbjNQ3S0IHlIQd2ZiieGMsLO0" }) %}
-
-{{ dump(response) }}
-
----This code was trying to use the httpReq plugin, I didnt understand the role of the file parameter--- #}
-
-
-
 {% endblock %}
